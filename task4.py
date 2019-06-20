@@ -6,4 +6,3 @@ for i in range(number_people):
     if gender == 1 and age > max_age:
         position, max_age = i+1, age
 print(position)
-4

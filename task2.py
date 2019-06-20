@@ -1,5 +1,5 @@
 def sort_inc(number):
-    # sorting digits in a number(> 0), to get largest version of it
+    """ sorting digits in a number(> 0), to get largest version of it """
     number = str(number)
     sorting = list(map(int, number))
     sorting.sort(reverse=True)
@@ -9,7 +9,7 @@ def sort_inc(number):
 
 
 def sort_dec(number):
-    # sorting digits in a number (>0), to get smallest version of it
+    """ sorting digits in a number (>0), to get smallest version of it """
     number = str(number)
     sorting = list(map(int, number))
     sorting.sort()
@@ -39,6 +39,4 @@ if income < 0:
 else:
     small = sort_dec(income)
 
-print(large)
-print(small)
 print(large - small)

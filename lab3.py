@@ -10,6 +10,7 @@ class Mypc:
 
     def writetofile(self):
         """ writing info to file, depend on "logtype" """
+        # TODO different log types to different files
         if os.path.isfile(self.file_name) is False:
             log = open("%s" % self.file_name, "w+")
         else:
@@ -27,6 +28,7 @@ class Mypc:
 
     def howareyou(self):
         """ requesting sysinfo and return it as dictionary """
+        #TODO change log format to "SNAPSHOT 1: TIMESTAMP : <columns for system wide data>"
         current = {}
         current["CPU"] = psutil.cpu_percent(interval=1)
         current["RAM total"] = bytes2human(psutil.virtual_memory()[0])
@@ -43,6 +45,7 @@ class Mypc:
 
 if __name__ == "__main__":
     """main void"""
+    #TODO open and read config file
     a1 = Mypc()
     a1.writetofile()
     print(a1.howareyou())

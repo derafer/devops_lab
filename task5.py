@@ -1,8 +1,8 @@
 from collections import Counter
 
 word = input("Print your word: ")
-collect = dict()
-test = dict()
+collect = {}
+test = {}
 for i in range(len(word)):
     if word[i] in collect:
         collect[word[i]] = collect[word[i]] + 1

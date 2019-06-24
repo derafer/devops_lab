@@ -29,17 +29,40 @@ import getpass
 import configparser
 import json
 
-# TODO add class for storing all dump and methods for processing this dump
+class GHsurfer:
+    def __init__(self, url, *args):
+        self.url = url
+        if len(args) == 1:
+            self.token = str(args[0])
+            self.log_type = "token"
+        elif len(args) == 2:
+            self.user = str(args[0])
+            self.passwd = str(args[1])
+            self.log_type = "uspass"
 
-line = argparse.ArgumentParser()
-url = "https://api.github.com/repos/alenaPy/devops_lab/pulls"
-token = "06d3a96a3c90b8acd0012555546a84d3b61db745"
-token = "token {}".format(token)
+    def print(self):
 
-gh_dump = requests.get(url, headers={"Authorization": token})
-gh_local = gh_dump.json()
+        if self.log_type == "token":
+            print(self.url, self.token)
+        else:
+            print(self.url, self.user, self.passwd)
 
-while 'next' in gh_dump.links.keys():
-  gh_dump=requests.get(gh_dump.links['next']['url'], headers={"Authorization": token}) # how its work
-  gh_local.extend(gh_dump.json())
-print(len(gh_local))
+
+
+
+if __name__ == "__main__":
+    line = argparse.ArgumentParser()
+    #url = "https://api.github.com/repos/alenaPy/devops_lab/pulls"
+    #token = "06d3a96a3c90b8acd0012555546a84d3b61db745"
+    #token = "token {}".format(token)
+    #gh_dump = requests.get(url, headers={"Authorization": token})
+    #gh_local = gh_dump.json()
+
+    #while 'next' in gh_dump.links.keys():
+    #    gh_dump=requests.get(gh_dump.links['next']['url'], headers={
+    #    "Authorization": token}) # how its work
+    #    gh_local.extend(gh_dump.json())
+    a1 = GHsurfer("http", "user", "pass")
+    a2 = GHsurfer("http", "kindatoken")
+    a1.print()
+    a2.print()

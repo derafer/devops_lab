@@ -13,8 +13,9 @@ def sort_dec(number):
     number = str(number)
     sorting = list(map(int, number))
     sorting.sort()
-    if sorting.count(0) > 0:
-        sorting[0], sorting[sorting.count(0)] = sorting[sorting.count(0)], sorting[0]
+    nyliki = sorting.count(0)
+    if nyliki > 0:
+        sorting[0], sorting[nyliki] = sorting[nyliki], sorting[0]
     a = [str(i) for i in sorting]
     result = int("".join(a))
     return result

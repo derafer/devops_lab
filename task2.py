@@ -21,23 +21,23 @@ def sort_dec(number):
     return result
 
 
-expense = int(input("Type your expenses: "))
-income = int(input("Type your income: "))
+def summing(a, b):
+    if a < 0:
+        a *= -1
+        large = sort_inc(a)
+        large *= -1
+    else:
+        large = sort_inc(a)
+    if b < 0:
+        b *= -1
+        small = sort_dec(b)
+        small *= -1
+    else:
+        small = sort_dec(b)
+    return large - small
 
-# preparing first number
-if expense < 0:
-    expense *= -1
-    large = sort_inc(expense)
-    large *= -1
-else:
-    large = sort_inc(expense)
 
-# preparing second number
-if income < 0:
-    income *= -1
-    small = sort_dec(income)
-    small *= -1
-else:
-    small = sort_dec(income)
-
-print(large - small)
+if __name__ == '__main__':
+    expense = int(input("Type your expenses: "))
+    income = int(input("Type your income: "))
+    print(summing(expense, income))

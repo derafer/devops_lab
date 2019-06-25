@@ -29,40 +29,45 @@ import getpass
 import configparser
 import json
 
+
 class GHsurfer:
-    def __init__(self, url, *args):
-        self.url = url
-        if len(args) == 1:
-            self.token = str(args[0])
-            self.log_type = "token"
-        elif len(args) == 2:
-            self.user = str(args[0])
-            self.passwd = str(args[1])
-            self.log_type = "uspass"
-
-    def print(self):
-
-        if self.log_type == "token":
-            print(self.url, self.token)
-        else:
-            print(self.url, self.user, self.passwd)
+    """ base class for methods"""
+    def printraw(self):
+        print(*self.gh_local, sep="\n")
 
 
+class GHUserSurfer(GHsurfer):
+    """ dumping provided github repo with username and password"""
+    def __init__(self, url, username, passwd):
+        self.gh_dump = requests.get(url, auth=(username, passwd))
+        self.gh_local = self.gh_dump.json()
+        while 'next' in self.gh_dump.links.keys():
+            self.gh_dump=requests.get(self.gh_dump.links['next']['url'],
+                                      auth=(username, passwd)) # walk through pages
+            self.gh_local.extend(self.gh_dump.json())
+
+
+class GHTokenSurfer(GHsurfer):
+    """ dumping provided github repo with token"""
+    def __init__(self, url, token):
+        self.gh_dump = requests.get(url, headers={"Authorization": token})
+        self.gh_local = self.gh_dump.json()
+        while 'next' in self.gh_dump.links.keys():
+            self.gh_dump=requests.get(self.gh_dump.links['next']['url'])
+                                      #headers={"Authorization": token}) # walk through pages
+            self.gh_local.extend(self.gh_dump.json())
 
 
 if __name__ == "__main__":
     line = argparse.ArgumentParser()
-    #url = "https://api.github.com/repos/alenaPy/devops_lab/pulls"
-    #token = "06d3a96a3c90b8acd0012555546a84d3b61db745"
-    #token = "token {}".format(token)
-    #gh_dump = requests.get(url, headers={"Authorization": token})
-    #gh_local = gh_dump.json()
+    url = "https://api.github.com/repos/Corwind/termite-install/pulls"
+    token = "69b3fc5bc442f55ad002dc9bd154fc0d98932d5a"
+    token = "token {}".format(token)
 
-    #while 'next' in gh_dump.links.keys():
-    #    gh_dump=requests.get(gh_dump.links['next']['url'], headers={
-    #    "Authorization": token}) # how its work
-    #    gh_local.extend(gh_dump.json())
-    a1 = GHsurfer("http", "user", "pass")
-    a2 = GHsurfer("http", "kindatoken")
-    a1.print()
-    a2.print()
+    #username = input("Type username: ")
+
+    username = "derafer"
+    passwd = ""
+    #passwd = getpass.getpass()
+    a1 = GHUserSurfer(url, username, passwd)
+

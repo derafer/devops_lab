@@ -17,24 +17,19 @@ class Mypc:
     def writetojson(self):
         """ writing info to file, json format, create if not exist """
 
-        if os.path.isfile(self.__json_name) is False:
-            log = open("%s" % self.__json_name, "w+")
-        else:
-            log = open("%s" % self.__json_name, "a")
-        current = json.dumps(self.howareyou())
-        log.write(current)
-        log.write('\n')
-        log.close()
+        with open("%s" % self.__json_name, "a+") as log:
+            current = json.dumps(self.howareyou())
+            log.write(current)
+            log.write('\n')
 
     def writetofile(self):
         """ writing info to file, plain info, create if not exist """
 
-        log = open("%s" % self.__file_name, "a+")
-        current = self.howareyou()
-        for key, value in current.items():
-            log.write(str(key) + ": " + str(value) + "  ")
-        log.write('\n')
-        log.close()
+        with open("%s" % self.__file_name, "a+") as log:
+            current = self.howareyou()
+            for key, value in current.items():
+                log.write(str(key) + ": " + str(value) + "  ")
+            log.write('\n')
 
     def howareyou(self):
         """ requesting sysinfo and return it as dictionary """

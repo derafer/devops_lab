@@ -29,7 +29,7 @@ class Mypc:
     def writetofile(self):
         """ writing info to file, plain info, create if not exist """
 
-        if os.path.isfile(self.__file_name) is False:
+        if not os.path.isfile(self.__file_name):
             log = open("%s" % self.__file_name, "w+")
         else:
             log = open("%s" % self.__file_name, "a")

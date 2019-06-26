@@ -9,9 +9,8 @@
 # TODO --day-opened Number of days opened.
 # TODO --comments Number of comments created.
 # TODO --day ? Day of the week opened.
-# TODO Hour of the day opened.
 # TODO --week-opened Week opened.
-# TODO -u | --user User who opened.
+# TODO --open-by User who opened.
 # TODO --closed-by User who closed.
 # TODO --labels Attached labels.
 # TODO Number of lines added.
@@ -58,17 +57,31 @@ class GHTokenSurfer(GHsurfer):
 
 
 if __name__ == "__main__":
-    line = argparse.ArgumentParser(description="script to get PR(Pull Request) statistics from GitHub")
-    line.add_argument("--user", help="user for work with git", default="empty")
-    args = line.parse_args()
-    print(type(args))
-    print(args.user)
-    url = "https://api.github.com/repos/Corwind/termite-install/pulls"
-    token = "69b3fc5bc442f55ad002dc9bd154fc0d98932d5a"
-    token = "token {}".format(token)
 
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    token_conf = config.get("common", "token")
+    line = argparse.ArgumentParser(description="script to get PR(Pull Request) statistics from GitHub")
+    line.add_argument("--user", help="user for work with git")
+    line.add_argument("--token", "-t", help="token for work with git")
+    line.add_argument("url", help="url for parsing")
+    args = line.parse_args()
+    if args.user is not None:
+        username = args.user
+    elif config.has_option("common", "username"):
+        username = config.get("common", "username")
+    else:
+        print("Please provide username")
+
+    if args.token is not None:
+        token = args.token
+    elif config.has_option("common", "token"):
+        token = config.get("common", "token")
+    else:
+        print("Please provide a token")
+    token = "token {}".format(token)
+    #url = "https://api.github.com/repos/Corwind/termite-install/pulls"
     #username = input("Type username: ")
 
-    username = "derafer"
-    passwd = "PLARsxq8"
+    #username = "derafer"
     #passwd = getpass.getpass()

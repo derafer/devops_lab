@@ -3,7 +3,7 @@
 # pr-stats [options] <user> [<repo>]
 # pr-stats --version
 # pr-stats (-h | --help)
-# TODO -h | --help Show help.
+# DONE -h | --help Show help.
 # TODO -v | --version Print the program's installed version
 # TODO -s | --base-stat Basic statistics about merged/closed rate.
 # TODO --day-opened Number of days opened.
@@ -58,9 +58,10 @@ class GHTokenSurfer(GHsurfer):
 
 
 if __name__ == "__main__":
-    line = argparse.ArgumentParser()
-    line.add_argument("user")
+    line = argparse.ArgumentParser(description="script to get PR(Pull Request) statistics from GitHub")
+    line.add_argument("--user", help="user for work with git", default="empty")
     args = line.parse_args()
+    print(type(args))
     print(args.user)
     url = "https://api.github.com/repos/Corwind/termite-install/pulls"
     token = "69b3fc5bc442f55ad002dc9bd154fc0d98932d5a"

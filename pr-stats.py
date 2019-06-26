@@ -42,8 +42,8 @@ class GHUserSurfer(GHsurfer):
         self.gh_dump = requests.get(url, auth=(username, passwd))
         self.gh_local = self.gh_dump.json()
         while 'next' in self.gh_dump.links.keys():
-            self.gh_dump=requests.get(self.gh_dump.links['next']['url'],
-                                      auth=(username, passwd)) # walk through pages
+            self.gh_dump=requests.get(self.gh_dump.links['next']['url'])
+                                      #auth=(username, passwd)) # walk through pages
             self.gh_local.extend(self.gh_dump.json())
 
 
@@ -53,13 +53,15 @@ class GHTokenSurfer(GHsurfer):
         self.gh_dump = requests.get(url, headers={"Authorization": token})
         self.gh_local = self.gh_dump.json()
         while 'next' in self.gh_dump.links.keys():
-            self.gh_dump=requests.get(self.gh_dump.links['next']['url'])
-                                      #headers={"Authorization": token}) # walk through pages
+            self.gh_dump=requests.get(self.gh_dump.links['next']['url'], headers={"Authorization": token})
             self.gh_local.extend(self.gh_dump.json())
 
 
 if __name__ == "__main__":
     line = argparse.ArgumentParser()
+    line.add_argument("user")
+    args = line.parse_args()
+    print(args.user)
     url = "https://api.github.com/repos/Corwind/termite-install/pulls"
     token = "69b3fc5bc442f55ad002dc9bd154fc0d98932d5a"
     token = "token {}".format(token)
@@ -67,7 +69,5 @@ if __name__ == "__main__":
     #username = input("Type username: ")
 
     username = "derafer"
-    passwd = ""
+    passwd = "PLARsxq8"
     #passwd = getpass.getpass()
-    a1 = GHUserSurfer(url, username, passwd)
-

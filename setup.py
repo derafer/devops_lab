@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="permonitoritg",
-    version='0.1',
+    version='0.2',
     author="Uladzislau Zubtsou",
     author_email="uladzislau_zubtsou@epam.com",
     description="Example of the test application",

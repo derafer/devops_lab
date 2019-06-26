@@ -10,8 +10,8 @@ from psutil._common import bytes2human
 
 class Mypc:
     """Class for printing overall system info with psutil"""
-    __file_name = str("sysf.log")
-    __json_name = str("sysj.log")
+    __file_name = "sysf.log"
+    __json_name = "sysj.log"
     __snap_count = 1
 
     def writetojson(self):

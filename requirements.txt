@@ -1,3 +1,5 @@
 flake8==3.7.1
 pycodestyle==2.5.0
+tox==3.13.1
 PyGithub==1.43.7
+requests==2.22.0
